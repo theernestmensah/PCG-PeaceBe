@@ -1,0 +1,34 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "pcg-peace-be",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      // Self-reference binding. The service name must match the worker name.
+      // See https://opennext.js.org/cloudflare/caching
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "pcg-peace-be"
+    }
+  ],
+  "r2_buckets": [
+    {
+      // Next.js page cache. Create this bucket before the first deploy:
+      // npx wrangler r2 bucket create pcg-peace-be-opennext-cache
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "pcg-peace-be-opennext-cache"
+    }
+  ],
+  "images": {
+    // Powers next/image optimization. See https://opennext.js.org/cloudflare/howtos/image
+    "binding": "IMAGES"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
