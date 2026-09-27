@@ -5,7 +5,7 @@ import { Container } from "@/components/ui/container";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-navy/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
+    <header className="sticky top-0 z-40 border-b border-navy/10 bg-white">
       <div className="h-1 bg-brand" />
       <Container className="flex min-h-18 items-center justify-between gap-3 py-2">
         <Link href="/" className="tap flex min-w-0 items-center gap-2.5 rounded-sm sm:gap-3">

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/ui/page-placeholder";
-
-export const metadata: Metadata = { title: "About Us" };
-
-export default function AboutPage() {
-  return <PagePlaceholder title="About Us" />;
+import { Container } from "@/components/ui/container";
+import { ButtonLink, ContentImage, PageIntro, Prose, SectionHeading } from "@/components/ui/public-page";
+import { getCopy, getLeaders } from "@/lib/content";
+export const metadata: Metadata = { title: "About Us", description: "Get to know Peace Be Congregation, a Presbyterian church family in Community 25, Tema." };
+export default async function AboutPage() {
+  const [story, beliefs, leaders] = await Promise.all([getCopy("about.story"), getCopy("about.beliefs"), getLeaders()]);
+  return <><PageIntro title="A family in Christ." label="About" intro="Peace Be Congregation · Presbyterian Church of Ghana · Community 25, Tema" /><Container><section className="section split-section"><h2>Rooted in faith.<br />Connected in love.</h2><Prose>{story || "We are Peace Be Congregation, part of the Presbyterian Church of Ghana in Community 25, Tema. Our church is a place to worship, grow in the Christian faith and share life with others. Whether you are exploring faith or looking for a church home, you are welcome here."}</Prose></section><section className="section section-rule split-section"><h2>What brings us together</h2><div><Prose>{beliefs || "At the heart of our life together is faith in Jesus Christ. We gather around God’s Word, join in prayer and worship, and seek to express our faith through care and service."}</Prose><div className="button-group"><ButtonLink href="/sermons" secondary>Listen to a sermon</ButtonLink></div></div></section>{leaders.data.filter(l => !l.group_id).length > 0 && <section className="section section-rule"><SectionHeading title="Meet our leadership" /><div className="leaders-grid">{leaders.data.filter(l => !l.group_id).map(l => <article key={l.id}><ContentImage fileKey={l.photo_key} alt={l.full_name} portrait /><h3>{l.full_name}</h3><p className="meta">{l.title}</p>{l.bio && <Prose>{l.bio}</Prose>}</article>)}</div></section>}<section className="simple-callout"><h2>Get to know us in person.</h2><ButtonLink href="/visit">Plan your visit</ButtonLink></section></Container></>;
 }

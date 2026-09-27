@@ -1,35 +1,18 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
+import { Arrow, ButtonLink, EmptyState, EventList, SectionHeading, SermonList, ServiceList } from "@/components/ui/public-page";
+import { getAnnouncements, getCopy, getEvents, getSermons } from "@/lib/content";
 
-// TODO(step 4): full home page (service times, featured events, latest sermon, announcements).
-export default function HomePage() {
-  return (
-    <section className="bg-surface">
-      <Container className="py-16 sm:py-24">
-        <p className="text-sm font-semibold tracking-widest text-brand uppercase">
-          Presbyterian Church of Ghana
-        </p>
-        <h1 className="mt-3 max-w-3xl text-4xl leading-tight font-semibold sm:text-6xl">
-          Peace Be Congregation
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg text-muted">
-          A worshipping family in Community 25, Tema. You are welcome here.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            href="/visit"
-            className="tap inline-flex items-center rounded-md bg-brand px-6 font-semibold text-white transition-colors hover:bg-navy"
-          >
-            Plan your visit
-          </Link>
-          <Link
-            href="/sermons"
-            className="tap inline-flex items-center rounded-md border border-navy/20 bg-white px-6 font-semibold text-navy transition-colors hover:border-brand hover:text-brand"
-          >
-            Watch sermons
-          </Link>
-        </div>
-      </Container>
-    </section>
-  );
+export default async function HomePage() {
+  const [events, sermons, announcements, welcome] = await Promise.all([getEvents(), getSermons(), getAnnouncements(), getCopy("home.welcome")]);
+  return <>
+    <section className="home-hero"><Container className="hero-grid"><div className="hero-copy"><p className="hero-location"><span /> Community 25, Tema</p><h1>A place to belong.<br />A faith to live.</h1><p>{welcome || "Welcome to Peace Be Congregation. A family in Christ, growing in faith and sharing God’s love with our community."}</p><div className="button-group"><ButtonLink href="/visit">Come worship with us</ButtonLink><Link href="/about" className="hero-about">Meet our church <Arrow /></Link></div><div className="hero-signature"><span className="small-cross" aria-hidden="true">✝</span><span>Presbyterian Church of Ghana<br /><strong>Peace be with you.</strong></span></div></div><figure className="hero-image"><Image src="/images/open-bible.jpg" alt="An open Bible illuminated by sunlight through stained glass" fill preload sizes="(max-width: 760px) 100vw, 48vw" /><figcaption>Rooted in the Word. Growing together.</figcaption></figure></Container></section>
+    <section className="welcome-strip"><Container className="welcome-strip-inner"><p>New here? <strong>There’s a place for you.</strong></p><Link href="/visit" className="text-link">Everything you need for your first visit <Arrow /></Link></Container></section>
+    <Container><section className="section home-welcome"><div><p className="section-label">Welcome to Peace Be</p><h2>Church is more<br />than a Sunday.</h2><p className="muted">It’s a life shared. In worship, in friendship, and in the everyday ways we care for one another.</p><ButtonLink href="/about" secondary>Get to know us</ButtonLink></div><div className="service-panel"><h2>Let’s worship together</h2><ServiceList /><Link href="/visit" className="text-link">Plan your visit <Arrow /></Link></div></section>
+    <section className="section section-rule"><SectionHeading title="Life in our church" href="/events" link="Explore events" />{events.data.length ? <EventList events={events.data.slice(0, 3)} /> : <EmptyState available={events.available} title="Our next gathering starts here">Upcoming events will appear here once announced. Explore our groups to find ways to take part.</EmptyState>}</section>
+    <section className="belong-section"><div><p className="section-label">Faith grows in community</p><h2>Find your people.<br />Grow together.</h2><p>Discover fellowship, friendship and opportunities to serve through the groups and ministries of Peace Be.</p><ButtonLink href="/groups">Explore our groups</ButtonLink></div><div className="belong-words" aria-hidden="true"><span>Worship.</span><span>Fellowship.</span><span>Service.</span></div></section>
+    <section className="section home-updates"><div><SectionHeading title="From the pulpit" href="/sermons" link="All sermons" />{sermons.data.length ? <SermonList sermons={sermons.data.slice(0, 2)} /> : <EmptyState available={sermons.available} title="Make room for the Word">Sermon recordings will be available here after they are published.</EmptyState>}</div><div><SectionHeading title="Church notices" href="/announcements" link="All notices" />{announcements.data.length ? announcements.data.slice(0, 2).map(a => <article className="notice-preview" key={a.id}>{a.is_pinned && <span className="badge">Church notice</span>}<h3><Link href={`/announcements#notice-${a.id}`}>{a.title}</Link></h3><p>{a.body.slice(0, 180)}{a.body.length > 180 ? "…" : ""}</p></article>) : <EmptyState available={announcements.available} title="You’re all caught up">There are no current announcements. Check back for updates from the church.</EmptyState>}</div></section></Container>
+    <section className="visit-banner"><Container><div><h2>Your next Sunday<br />could feel like home.</h2><p>Come as you are. We look forward to welcoming you.</p></div><ButtonLink href="/visit">Plan your first visit</ButtonLink></Container></section>
+  </>;
 }

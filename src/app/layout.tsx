@@ -6,6 +6,9 @@ import { SkipLink } from "@/components/layout/skip-link";
 import { siteDescription, siteFullName, siteName } from "@/lib/site";
 import "./globals.css";
 
+// Published content and notice expiry are evaluated for every request.
+export const dynamic = "force-dynamic";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],

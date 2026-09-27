@@ -74,6 +74,7 @@ Feel: modern, warm, premium, reverent. Never template looking.
 - Event archive is computed from `ends_at`, never stored.
 - Announcements show only between `publish_at` and `expires_at`.
 - Public can read only published, current rows. Only admins can write.
+- Cancelled events are also public, shown as cancelled.
 - `contact_messages`: public insert only, admin read only.
 
 ## Defaults (each marked with a TODO in code for later review)

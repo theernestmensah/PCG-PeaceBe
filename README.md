@@ -19,6 +19,25 @@ Public website for the Presbyterian Church of Ghana, Peace Be Congregation. See 
 | `npm run preview` | Build for Cloudflare and run locally in the Workers runtime |
 | `npm run deploy` | Build and deploy to Cloudflare Workers |
 | `npm run cf-typegen` | Generate types for Cloudflare bindings |
+| `npm run db:push` | Apply the Supabase schema and starter content |
+| `npm run db:test` | Run the linked database policy tests |
+
+## Public content
+
+The public pages read published content from Supabase. Apply the migration and
+starter rows, then fill in `site_settings`, `service_times`, `page_content`,
+events, sermons, announcements, groups and leaders. Missing content is handled
+with visitor-friendly empty states; the site never invents church details.
+
+The contact and visit forms are enabled when the Supabase and Cloudflare
+Turnstile variables in `.env.example` are configured. Resend is optional: a
+message is considered received after it has been stored in Supabase, while email
+acts as an office notification.
+
+Replace `public/images/open-bible.jpg` with approved congregation photography
+when it is available, and replace the temporary crest component with the
+official PCG artwork. Image licensing information is in
+`public/images/CREDITS.md`.
 
 ## Deploying to Cloudflare
 
