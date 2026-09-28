@@ -75,7 +75,7 @@ p { text-wrap: pretty; }
 .hero-signature strong { font-weight: 500; color: white; }
 .small-cross { font-size: 35px; font-family: Georgia, serif; }
 .hero-image { position: relative; min-height: 510px; border-radius: 160px 160px 6px 6px; overflow: hidden; background: var(--color-brand); }
-.hero-image img { object-fit: cover; object-position: 48% center; }
+.hero-image img { object-fit: cover; object-position: 64% center; }
 .hero-image figcaption { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px; background: oklch(0.2 0.02 275 / 0.87); color: white; font-size: 15px; text-align: center; }
 .welcome-strip { background: var(--soft-blue); border-bottom: 1px solid var(--line); }
 .welcome-strip-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-block: 17px; }
@@ -213,7 +213,7 @@ input::placeholder, textarea::placeholder { color: var(--color-muted); }
   .hero-copy > p:not(.hero-location) { max-width: 50ch; }
   .hero-signature { margin-top: 26px; }
   .hero-image { min-height: 320px; border-radius: 100px 100px 5px 5px; }
-  .hero-image img { object-position: center 57%; }
+  .hero-image img { object-position: 64% center; }
   .welcome-strip-inner { flex-direction: column; align-items: flex-start; gap: 2px; padding-block: 18px; }
   .home-welcome, .split-section, .home-updates, .contact-grid, .belong-section { grid-template-columns: 1fr; gap: 32px; }
   .belong-section { padding: 30px; }
