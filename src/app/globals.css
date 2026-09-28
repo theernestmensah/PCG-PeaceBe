@@ -272,3 +272,8 @@ input::placeholder, textarea::placeholder { color: var(--color-muted); }
 .theme-banner .section-label { margin-bottom: 8px; }
 .theme-text { font-family: var(--font-source-serif), Georgia, serif; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.3; color: var(--color-navy); max-width: 40ch; }
 .theme-ref { margin-top: 6px; color: var(--color-muted); font-size: 15px; font-weight: 600; letter-spacing: 0.04em; }
+
+/* Building rendering at the top of the Visit page location panel. */
+.visit-building { margin-bottom: 28px; }
+.visit-building img { display: block; width: 100%; height: auto; border-radius: 4px; }
+.visit-building figcaption { margin-top: 10px; color: var(--color-muted); font-size: 15px; }

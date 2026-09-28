@@ -1,6 +1,6 @@
 # Image credit
 
-`peace-be-building.webp`: architectural rendering of the Peace Be Congregation building, supplied by the congregation.
+`peace-be-building.webp`, `peace-be-building-side.webp`: architectural renderings of the Peace Be Congregation building, supplied by the congregation.
 
 `pcg-crest.jpg`: official Presbyterian Church of Ghana crest, supplied by the congregation.
 
