@@ -6,8 +6,9 @@ export const siteDescription =
 export type NavItem = { href: string; label: string };
 
 export const mainNav: NavItem[] = [
+  { href: "/today", label: "Today" },
   { href: "/about", label: "About" },
-  { href: "/groups", label: "Groups" },
+  { href: "/church-family", label: "Church family" },
   { href: "/events", label: "Events" },
   { href: "/sermons", label: "Sermons" },
   { href: "/announcements", label: "Announcements" },

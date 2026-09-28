@@ -4,11 +4,13 @@ import { createClient } from "@supabase/supabase-js";
 
 export type Service = { id: string; name: string; day_of_week: number; start_time: string; language: string | null; notes: string | null };
 export type Settings = { address: string | null; phone: string | null; email: string | null; office_hours: string | null; map_embed_url: string | null; momo_number: string | null; momo_name: string | null; bank_details: Record<string, string> | null; social_links: Record<string, string> };
-export type Group = { id: string; name: string; short_name: string | null; slug: string; description: string | null; meeting_day: number | null; meeting_time: string | null; meeting_venue: string | null; cover_image_key: string | null };
+export type Group = { id: string; name: string; short_name: string | null; slug: string; description: string | null; meeting_day: number | null; meeting_time: string | null; meeting_venue: string | null; cover_image_key: string | null; group_kind?: "generational" | "intergenerational" | "ministry" | "committee" | "shepherding"; is_public?: boolean };
 export type ChurchEvent = { id: string; title: string; slug: string; description: string | null; starts_at: string; ends_at: string; venue: string | null; status: string; flyer_key: string | null; group_id: string | null; is_featured: boolean };
 export type Sermon = { id: string; title: string; slug: string; preacher_name: string; preached_on: string; bible_passage: string | null; youtube_url: string | null; audio_key: string | null; summary: string | null };
 export type Announcement = { id: string; title: string; body: string; publish_at: string; is_pinned: boolean };
-export type Leader = { id: string; full_name: string; title: string; bio: string | null; photo_key: string | null; group_id: string | null };
+export type Leader = { id: string; full_name: string; title: string; bio: string | null; photo_key: string | null; group_id: string | null; category: "minister" | "session" | "group_leader" };
+export type AlmanacEntry = { id: string; entry_date: string; day_label: string | null; theme: string | null; liturgical_season: string | null; liturgical_color: string | null; readings: string[]; memory_verse_reference: string | null; memory_verse_text: string | null; hymn_number: string | null; hymn_title: string | null; hymn_language: string | null; prayer_focus: string | null; observance: string | null; reflection: string | null; source_note: string | null };
+export type Campaign = { id: string; name: string; slug: string; theme: string | null; scripture_reference: string | null; purpose: string | null; target_amount: number; confirmed_amount: number; starts_on: string; ends_on: string | null; status: "active" | "closed"; show_progress: boolean };
 type PageContent = { key: string; title: string | null; body: string | null };
 export type Result<T> = { data: T[]; available: boolean };
 
@@ -51,10 +53,13 @@ export const getSermons = cache((page = 1, search = "") => {
   if (search) query = query?.ilike("title", `%${search.replace(/[%_\\]/g, "").slice(0, 100)}%`);
   return read<Sermon>(query?.order("preached_on", { ascending: false }).range((page - 1) * 12, page * 12));
 });
+export const getAlmanacEntry = cache(async (date: string) => read<AlmanacEntry>(publicDatabase()?.from("almanac_entries").select("*").eq("entry_date", date).eq("status", "published").limit(1)));
+export const getCampaigns = cache(() => read<Campaign>(publicDatabase()?.from("campaigns").select("*").in("status", ["active", "closed"]).order("starts_on", { ascending: false })));
 export const getEvent = cache(async (slug: string) => read<ChurchEvent>(publicDatabase()?.from("events").select("*").eq("slug", slug).in("status", ["published", "cancelled"]).limit(1)));
 export const getSermon = cache(async (slug: string) => read<Sermon>(publicDatabase()?.from("sermons").select("*").eq("slug", slug).eq("status", "published").limit(1)));
 
 export const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+export function ghanaDate(date = new Date()) { return new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Accra", year: "numeric", month: "2-digit", day: "2-digit" }).format(date); }
 export function timeLabel(time: string) { const [hour, minute] = time.split(":").map(Number); return `${hour % 12 || 12}:${String(minute).padStart(2, "0")} ${hour < 12 ? "am" : "pm"}`; }
 export function dateLabel(date: string, withTime = false) { return new Intl.DateTimeFormat("en-GH", { day: "numeric", month: "long", year: "numeric", timeZone: "Africa/Accra", ...(withTime ? { hour: "numeric", minute: "2-digit" } as const : {}) }).format(new Date(date)); }
 export function mediaUrl(key: string | null) { const base = process.env.NEXT_PUBLIC_MEDIA_URL; return key && base ? `${base.replace(/\/$/, "")}/${key.split("/").map(encodeURIComponent).join("/")}` : null; }
