@@ -2,7 +2,7 @@
 
 ## Context
 
-Public website for the Presbyterian Church of Ghana, Peace Be Congregation, [Community 25, Tema]. Phase 1 of a church management system for this one congregation. Later phases add an admin panel, member records, member registration with approval, a member portal, finance, online giving, SMS, and attendance. Everything built now must allow those to be added without rewriting.
+Website and church management system for the Presbyterian Church of Ghana, Peace Be Congregation, Community 25, Tema. The public website is complete and Phase 2 adds the secure church-office workspace. Later phases add member records, member registration with approval, a member portal, finance, online giving, SMS, and attendance. Everything built now must allow those to be added without rewriting.
 
 ## Stack
 
@@ -88,9 +88,9 @@ Feel: modern, warm, premium, reverent. Never template looking.
 - Sermons may have YouTube, audio, or both.
 - Contact and visitor messages go to `CHURCH_OFFICE_EMAIL`.
 
-## Out of scope for this phase
+## Current phase
 
-Admin panel, member features, payments, SMS, attendance. If a request belongs to a later phase, say so instead of building it.
+Secure admin authentication, dashboard and public-content management. Member features, payments, SMS and attendance remain later phases.
 
 ## Working style
 

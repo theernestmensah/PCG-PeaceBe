@@ -39,6 +39,24 @@ when it is available, and replace the temporary crest component with the
 official PCG artwork. Image licensing information is in
 `public/images/CREDITS.md`.
 
+## Church office
+
+The staff workspace is available at `/admin`. It uses Supabase Auth and checks
+the `user_roles` table on sign-in, on every protected page and inside every
+publishing action.
+
+Create the first administrator in Supabase Authentication, then assign the
+role in the SQL editor using that user’s UUID:
+
+```sql
+insert into public.user_roles (user_id, role)
+values ('USER_UUID_HERE', 'admin');
+```
+
+There is deliberately no public staff-registration route. Once signed in, an
+administrator can publish announcements and events, manage service times and
+review recent website enquiries.
+
 ## Deploying to Cloudflare
 
 Before the first deploy, create the page cache bucket:

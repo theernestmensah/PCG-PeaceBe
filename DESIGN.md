@@ -10,3 +10,6 @@ Maximum content width 1200px. Generous section spacing; split hero with a Bible 
 
 ## States
 Distinguish unavailable data from an empty collection. Forms report success only after durable storage. Errors preserve entered values. All primary flows work with keyboard navigation. Respect reduced motion.
+
+## Church office
+The admin surface uses the same blue identity with a restrained product register: Inter throughout, compact fixed type sizes, a persistent navigation rail, ruled data rows and familiar forms. Status colour communicates publication state; decoration never competes with the work.

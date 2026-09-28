@@ -8,7 +8,7 @@ brand
 Visitors exploring a church in Community 25, Tema, and congregation members looking for services, sermons, groups, events and announcements. Many browse on phones and mobile data; elderly members need generous text and controls.
 
 ## Product Purpose
-Complete the public website first, as confirmed by the user. Help a visitor plan a visit and help members find current information. Retain the Next.js, Supabase and Cloudflare foundation for later management features.
+Help visitors plan a visit and members find current information, while giving authorised church staff a secure office workspace to publish and manage it. The public website is the first completed surface; the staff system now grows behind it toward member, attendance and finance management.
 
 ## Brand Personality
 Welcoming, reverent, assured. Preserve the Presbyterian Church of Ghana blue, red, green and white identity and existing Inter/Source Serif typography.
@@ -20,6 +20,7 @@ Avoid generic dashboard styling, invented congregation statistics, unverified se
 - Make the next step obvious: visit, listen, participate or contact.
 - Publish trustworthy, current information from the church database.
 - Keep church content editable without changing page layouts.
+- Make routine office work quick, traceable and difficult to publish incorrectly.
 - Use the established identity consistently.
 
 ## Accessibility & Inclusion
