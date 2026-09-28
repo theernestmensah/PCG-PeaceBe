@@ -2,14 +2,15 @@
 
 /*
  * Brand tokens. The default Tailwind palette is removed so only these colours exist.
- * TODO(review): hex values are placeholders until sampled from the official PCG crest.
+ * Blue, red and green are sampled from the official PCG crest (public/images/pcg-crest.jpg).
  */
 @theme {
   --color-*: initial;
-  --color-brand: #0b3d91; /* blue, primary */
-  --color-navy: #072a63; /* darker shade of the brand blue */
-  --color-red: #c8102e; /* accent, used sparingly */
-  --color-green: #1e7b34; /* accent, used sparingly */
+  --color-brand: #2e3192; /* crest blue, primary */
+  --color-navy: #1f2166; /* darker shade of the crest blue */
+  --color-red: #ed1b24; /* crest red: fills and accents only, too light for text */
+  --color-red-text: #c8141c; /* darker crest red for red text (5.9:1 on white) */
+  --color-green: #215e32; /* crest green, accent, used sparingly */
   --color-white: #ffffff;
   --color-surface: #f5f7fb; /* neutral background */
   --color-ink: #1a1f2b; /* neutral body text */
@@ -35,8 +36,8 @@
 
 /* Public site: established PCG palette, readable type and generous controls. */
 :root {
-  --line: oklch(0.89 0.015 260);
-  --soft-blue: oklch(0.97 0.012 260);
+  --line: oklch(0.89 0.015 275);
+  --soft-blue: oklch(0.97 0.012 275);
 }
 html { scroll-padding-top: 110px; }
 body { overflow-wrap: break-word; }
@@ -62,20 +63,20 @@ p { text-wrap: pretty; }
 .home-hero { background: var(--color-navy); color: white; }
 .hero-grid { display: grid; grid-template-columns: 1.08fr 1fr; min-height: 610px; gap: 32px; padding-block: 36px; }
 .hero-copy { padding-block: 38px 22px; padding-right: 15px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
-.hero-location { display: flex; gap: 10px; align-items: center; font-size: 15px; color: oklch(0.88 0.03 255); margin-bottom: 28px; }
+.hero-location { display: flex; gap: 10px; align-items: center; font-size: 15px; color: oklch(0.88 0.03 275); margin-bottom: 28px; }
 .hero-location > span { height: 7px; width: 7px; border-radius: 50%; background: white; }
 .hero-copy h1 { font-size: clamp(2.65rem, 4.6vw, 4.25rem); color: white; font-weight: 400; letter-spacing: -0.03em; line-height: 1.09; margin-bottom: 28px; }
-.hero-copy > p:not(.hero-location) { max-width: 43ch; color: oklch(0.91 0.025 255); font-size: 18px; line-height: 1.8; white-space: pre-line; }
+.hero-copy > p:not(.hero-location) { max-width: 43ch; color: oklch(0.91 0.025 275); font-size: 18px; line-height: 1.8; white-space: pre-line; }
 .home-hero .button-primary { color: var(--color-navy); background: white; }
-.home-hero .button-primary:hover { background: oklch(0.92 0.025 255); }
+.home-hero .button-primary:hover { background: oklch(0.92 0.025 275); }
 .hero-about { color: white; min-height: 44px; display: inline-flex; align-items: center; gap: 12px; font-size: 15px; }
 .hero-about:hover { text-decoration: underline; text-underline-offset: 5px; }
-.hero-signature { display: flex; gap: 15px; align-items: center; margin-top: 42px; font-size: 15px; line-height: 1.6; color: oklch(0.89 0.03 255); }
+.hero-signature { display: flex; gap: 15px; align-items: center; margin-top: 42px; font-size: 15px; line-height: 1.6; color: oklch(0.89 0.03 275); }
 .hero-signature strong { font-weight: 500; color: white; }
 .small-cross { font-size: 35px; font-family: Georgia, serif; }
 .hero-image { position: relative; min-height: 510px; border-radius: 160px 160px 6px 6px; overflow: hidden; background: var(--color-brand); }
 .hero-image img { object-fit: cover; object-position: 48% center; }
-.hero-image figcaption { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px; background: oklch(0.2 0.02 255 / 0.87); color: white; font-size: 15px; text-align: center; }
+.hero-image figcaption { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px; background: oklch(0.2 0.02 275 / 0.87); color: white; font-size: 15px; text-align: center; }
 .welcome-strip { background: var(--soft-blue); border-bottom: 1px solid var(--line); }
 .welcome-strip-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-block: 17px; }
 .welcome-strip p { color: var(--color-navy); }
@@ -108,7 +109,7 @@ p { text-wrap: pretty; }
 .visit-banner { background: var(--color-brand); color: white; padding-block: 62px; }
 .visit-banner > div { display: flex; justify-content: space-between; align-items: center; gap: 30px; }
 .visit-banner h2 { color: white; font-size: clamp(2rem, 3.8vw, 3.5rem); line-height: 1.15; margin-bottom: 16px; font-weight: 400; }
-.visit-banner p { color: oklch(0.92 0.025 255); }
+.visit-banner p { color: oklch(0.92 0.025 275); }
 .visit-banner .button { background: white; color: var(--color-brand); flex-shrink: 0; }
 .page-intro { padding-block: 28px 55px; background: var(--soft-blue); border-bottom: 1px solid var(--line); }
 .breadcrumb { display: flex; gap: 12px; font-size: 15px; color: var(--color-muted); align-items: center; margin-bottom: 38px; }
@@ -146,15 +147,15 @@ dd { margin-top: 4px; overflow-wrap: anywhere; }
 .contact-form fieldset { border: 0; min-width: 0; margin-top: 22px; }
 .contact-form label, .search-form label { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 600; color: var(--color-navy); }
 .contact-form label span { color: var(--color-muted); font-weight: 400; }
-.contact-form input, .contact-form textarea, .search-form input { display: block; width: 100%; min-height: 48px; border: 1px solid oklch(0.72 0.025 260); border-radius: 4px; padding: 10px 12px; background: white; color: var(--color-ink); }
+.contact-form input, .contact-form textarea, .search-form input { display: block; width: 100%; min-height: 48px; border: 1px solid oklch(0.72 0.025 275); border-radius: 4px; padding: 10px 12px; background: white; color: var(--color-ink); }
 .contact-form textarea { resize: vertical; }
 input::placeholder, textarea::placeholder { color: var(--color-muted); }
 .contact-form input:disabled, .contact-form textarea:disabled { background: var(--soft-blue); }
 .form-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-block: 20px; }
 .form-privacy { color: var(--color-muted); font-size: 15px; margin-block: 18px; }
 .form-notice { background: var(--soft-blue); padding: 16px; font-size: 15px; margin-block: 20px; }
-.button:disabled { background: oklch(0.92 0.015 260); border-color: transparent; color: oklch(0.42 0.025 260); cursor: not-allowed; }
-.form-error, .cancellation { color: var(--color-red); background: oklch(0.97 0.015 20); padding: 16px; margin-block: 20px; }
+.button:disabled { background: oklch(0.92 0.015 275); border-color: transparent; color: oklch(0.42 0.025 275); cursor: not-allowed; }
+.form-error, .cancellation { color: var(--color-red-text); background: oklch(0.97 0.015 20); padding: 16px; margin-block: 20px; }
 .form-success { color: var(--color-green); background: oklch(0.97 0.015 145); padding: 16px; margin-top: 20px; }
 .honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .captcha { margin-bottom: 18px; }
@@ -171,7 +172,7 @@ input::placeholder, textarea::placeholder { color: var(--color-muted); }
 .row-arrow:hover { background: var(--soft-blue); }
 .sermon-symbol { min-width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; color: var(--color-brand); background: var(--soft-blue); font-size: 25px; }
 .badge { display: inline-flex; padding: 4px 10px; border-radius: 4px; background: var(--soft-blue); color: var(--color-brand); font-size: 15px; font-family: var(--font-inter), sans-serif; }
-.badge-red { background: oklch(0.96 0.02 20); color: var(--color-red); }
+.badge-red { background: oklch(0.96 0.02 20); color: var(--color-red-text); }
 .pagination { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
 .search-form { max-width: 650px; margin-bottom: 32px; }
 .search-form > div { display: flex; gap: 12px; }
@@ -263,3 +264,11 @@ input::placeholder, textarea::placeholder { color: var(--color-muted); }
     }
   }
 }
+
+/* Yearly PCG theme banner on the home page. */
+.theme-banner { padding-top: clamp(32px, 5vw, 56px); }
+.theme-banner img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.theme-banner figcaption { margin-top: 20px; }
+.theme-banner .section-label { margin-bottom: 8px; }
+.theme-text { font-family: var(--font-source-serif), Georgia, serif; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.3; color: var(--color-navy); max-width: 40ch; }
+.theme-ref { margin-top: 6px; color: var(--color-muted); font-size: 15px; font-weight: 600; letter-spacing: 0.04em; }

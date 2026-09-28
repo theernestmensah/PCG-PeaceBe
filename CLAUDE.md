@@ -17,18 +17,21 @@ Public website for the Presbyterian Church of Ghana, Peace Be Congregation, [Com
 
 Presbyterian Church of Ghana identity. The brand colors are red, white, blue, and green, and no others. Neutrals are used only for text and backgrounds.
 
-Tailwind tokens (hex values are placeholders until sampled from the official crest):
+Logo: the official PCG crest, `public/images/pcg-crest.jpg`.
 
-| Token   | Value     | Notes                                   |
-| ------- | --------- | --------------------------------------- |
-| brand   | `#0B3D91` | Blue, primary                           |
-| navy    | `#072A63` | Darker shade of the brand blue          |
-| red     | `#C8102E` | Accent, used sparingly                  |
-| green   | `#1E7B34` | Accent, used sparingly                  |
-| white   | `#FFFFFF` |                                         |
-| surface | `#F5F7FB` | Neutral background                      |
-| ink     | `#1A1F2B` | Neutral body text                       |
-| muted   | `#5B6475` | Neutral secondary text                  |
+Tailwind tokens (blue, red and green sampled from the crest):
+
+| Token    | Value     | Notes                                                   |
+| -------- | --------- | ------------------------------------------------------- |
+| brand    | `#2E3192` | Crest blue, primary                                     |
+| navy     | `#1F2166` | Darker shade of the crest blue                          |
+| red      | `#ED1B24` | Crest red. Fills and accents only, too light for text   |
+| red-text | `#C8141C` | Darker crest red for red text                           |
+| green    | `#215E32` | Crest green, accent, used sparingly                     |
+| white    | `#FFFFFF` |                                                         |
+| surface  | `#F5F7FB` | Neutral background                                      |
+| ink      | `#1A1F2B` | Neutral body text                                       |
+| muted    | `#5B6475` | Neutral secondary text                                  |
 
 Feel: modern, warm, premium, reverent. Never template looking.
 
