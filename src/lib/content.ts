@@ -61,6 +61,23 @@ export const getSermon = cache(async (slug: string) => read<Sermon>(publicDataba
 export const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 export function ghanaDate(date = new Date()) { return new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Accra", year: "numeric", month: "2-digit", day: "2-digit" }).format(date); }
 export function timeLabel(time: string) { const [hour, minute] = time.split(":").map(Number); return `${hour % 12 || 12}:${String(minute).padStart(2, "0")} ${hour < 12 ? "am" : "pm"}`; }
+/* The next service to start after `now`, in Ghana time (GMT, no daylight saving). */
+export function nextService(services: Service[], now = new Date()) {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-US", { timeZone: "Africa/Accra", weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(now).map((part) => [part.type, part.value]));
+  const today = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(parts.weekday);
+  const minutesNow = Number(parts.hour) * 60 + Number(parts.minute);
+  let best: { service: Service; daysAhead: number; wait: number } | null = null;
+  for (const service of services) {
+    const [hour, minute] = service.start_time.split(":").map(Number);
+    let daysAhead = (service.day_of_week - today + 7) % 7;
+    if (daysAhead === 0 && hour * 60 + minute <= minutesNow) daysAhead = 7;
+    const wait = daysAhead * 1440 + hour * 60 + minute - minutesNow;
+    if (!best || wait < best.wait) best = { service, daysAhead, wait };
+  }
+  if (!best) return null;
+  const day = best.daysAhead === 0 ? "Today" : best.daysAhead === 1 ? "Tomorrow" : days[best.service.day_of_week];
+  return { service: best.service, label: `${day}, ${timeLabel(best.service.start_time)}` };
+}
 export function dateLabel(date: string, withTime = false) { return new Intl.DateTimeFormat("en-GH", { day: "numeric", month: "long", year: "numeric", timeZone: "Africa/Accra", ...(withTime ? { hour: "numeric", minute: "2-digit" } as const : {}) }).format(new Date(date)); }
 export function mediaUrl(key: string | null) { const base = process.env.NEXT_PUBLIC_MEDIA_URL; return key && base ? `${base.replace(/\/$/, "")}/${key.split("/").map(encodeURIComponent).join("/")}` : null; }
 export function safeExternal(value: string | null | undefined) { try { const url = new URL(value || ""); return url.protocol === "https:" ? url.toString() : null; } catch { return null; } }

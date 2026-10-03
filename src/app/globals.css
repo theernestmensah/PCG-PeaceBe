@@ -234,6 +234,7 @@ input::placeholder, textarea::placeholder { color: var(--color-muted); }
 
 /* Church office */
 body:has(.admin-page) > header,
+body:has(.admin-page) > .site-strip,
 body:has(.admin-page) > footer { display: none; }
 body:has(.admin-page) { background: oklch(0.975 0.008 260); font-size: 1rem; }
 body:has(.admin-page) h1,
@@ -375,6 +376,9 @@ body:has(.admin-page) h3 { font-family: var(--font-inter), sans-serif; color: va
     }
   }
 }
+
+/* Site header: a soft shadow once the page scrolls under it. */
+.site-header[data-scrolled] { box-shadow: 0 6px 24px -12px oklch(0.25 0.08 275 / 0.35); }
 
 /* Yearly PCG theme banner on the home page. */
 .theme-banner { padding-top: clamp(32px, 5vw, 56px); }
