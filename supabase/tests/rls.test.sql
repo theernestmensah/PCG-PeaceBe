@@ -43,6 +43,18 @@ insert into public.announcements (title, body, publish_at, expires_at, status) v
 insert into public.contact_messages (name, email, message) values
   ('Existing', 'existing@test.local', 'Hello');
 
+insert into public.people (id, auth_user_id, first_name, last_name, status) values
+  ('00000000-0000-4000-8000-00000000b002', '00000000-0000-4000-8000-00000000b001', 'Member', 'Self', 'member'),
+  ('00000000-0000-4000-8000-00000000b003', null, 'Private', 'Person', 'member');
+
+insert into public.stories (title, slug, body, status) values
+  ('Public story', 'public-story', 'Visible', 'published'),
+  ('Draft story', 'draft-story', 'Hidden', 'draft');
+
+insert into public.documents (title, category, object_key, is_public) values
+  ('Public form', 'Forms', 'forms/public.pdf', true),
+  ('Private minutes', 'Governance', 'minutes/private.pdf', false);
+
 -- ---------------------------------------------------------------------------
 -- Constraints
 -- ---------------------------------------------------------------------------
@@ -103,9 +115,13 @@ select results_eq(
   'anon sees only active leaders'
 );
 select is((select count(*)::int from public.groups where slug = 'test-group'), 1, 'anon can read groups');
+select is((select count(*)::int from public.stories), 1, 'anon sees only published stories');
+select is((select count(*)::int from public.documents), 1, 'anon sees only public documents');
 
 select throws_ok($$ select * from public.contact_messages $$, '42501', null,
   'anon cannot read contact messages');
+select throws_ok($$ select * from public.people $$, '42501', null,
+  'anon cannot read member records');
 select throws_ok($$ select * from public.user_roles $$, '42501', null,
   'anon cannot read user roles');
 select lives_ok(
@@ -143,6 +159,12 @@ select is((select count(*)::int from public.contact_messages), 0,
   'non-admin cannot see contact messages');
 select is((select count(*)::int from public.user_roles), 0,
   'non-admin sees no roles (has none)');
+select results_eq(
+  $$ select first_name from public.people order by first_name $$,
+  $$ values ('Member') $$,
+  'member sees only their own person record'
+);
+select is((select count(*)::int from public.documents), 1, 'member sees only public documents');
 select throws_ok(
   $$ insert into public.user_roles (user_id, role)
      values ('00000000-0000-4000-8000-00000000b001', 'admin') $$,
@@ -175,6 +197,8 @@ select is((select count(*)::int from public.sermons where slug like 'se-%'), 3, 
 select is((select count(*)::int from public.announcements where body = 'test-fixture'), 5, 'admin sees all announcements');
 select is((select count(*)::int from public.leaders where full_name like 'Test %'), 2, 'admin sees inactive leaders');
 select is((select count(*)::int from public.contact_messages where name in ('Existing', 'New Visitor')), 2, 'admin reads contact messages');
+select is((select count(*)::int from public.people), 2, 'admin reads all people records');
+select is((select count(*)::int from public.documents), 2, 'admin reads public and private documents');
 select lives_ok($$ insert into public.groups (name, slug) values ('New', 'test-new-group') $$,
   'admin can insert groups');
 select lives_ok($$ update public.contact_messages set is_handled = true where name = 'Existing' $$,

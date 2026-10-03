@@ -43,6 +43,8 @@ export const primaryNav: NavEntry[] = [
     items: [
       { href: "/events", label: "Events", description: "Upcoming services, programmes and gatherings" },
       { href: "/announcements", label: "Announcements", description: "Notices from the church office" },
+      { href: "/stories", label: "Stories", description: "Life, witness and milestones from Peace Be" },
+      { href: "/resources", label: "Resources", description: "Forms, notices and approved downloads" },
       { href: "/harvest", label: "Harvest", description: "This year's Harvest and its progress" },
     ],
   },

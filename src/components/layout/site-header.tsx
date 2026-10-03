@@ -40,7 +40,7 @@ export async function SiteHeader() {
               <span className="truncate">
                 <span className="text-white/75">Next service: </span>
                 <span className="font-semibold">{office.nextService.label}</span>
-                <span className="hidden text-white/75 md:inline"> Â· {office.nextService.name}</span>
+                <span className="hidden text-white/75 md:inline"> · {office.nextService.name}</span>
               </span>
             </Link>
           ) : (

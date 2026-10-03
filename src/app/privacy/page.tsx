@@ -1,0 +1,9 @@
+import type { Metadata } from "next";
+import { Container } from "@/components/ui/container";
+import { PageIntro, Prose } from "@/components/ui/public-page";
+
+export const metadata: Metadata = { title: "Privacy", description: "How Peace Be Congregation handles website and member information." };
+export default function PrivacyPage() {
+  return <><PageIntro title="Your information deserves care." label="Privacy" intro="How Peace Be Congregation handles website enquiries and private member records." /><Container><section className="section reading-column legal-copy"><h2>Information we collect</h2><Prose>When you contact the church, plan a visit or use the member area, we may collect the details needed to respond, maintain the congregation register, organise ministry and provide pastoral or financial records.</Prose><h2>How we use it</h2><Prose>Authorised church officers use this information for church administration, communication, pastoral care, safeguarding, attendance and accountable financial reporting. Public pages never query private member, giving or pastoral tables.</Prose><h2>Access and retention</h2><Prose>Access is limited through authenticated roles and database policies. The church should retain records only for an approved operational, legal or ecclesiastical purpose. Members may contact the church office to request corrections to their personal details.</Prose><h2>Children and pastoral information</h2><Prose>Children’s records, guardian relationships, counselling details and pastoral follow-ups require stricter access and should never be placed in public announcements, group pages or directories.</Prose><h2>Contact</h2><Prose>Questions about a record or this notice should be sent to the Peace Be church office through the contact page.</Prose></section></Container></>;
+}
+

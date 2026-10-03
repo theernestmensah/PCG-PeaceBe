@@ -2,7 +2,7 @@
 
 ## Context
 
-Website and church management system for the Presbyterian Church of Ghana, Peace Be Congregation, Community 25, Tema. The public website is complete and Phase 2 adds the secure church-office workspace. Later phases add member records, member registration with approval, a member portal, finance, online giving, SMS, and attendance. Everything built now must allow those to be added without rewriting.
+Website and church management system for the Presbyterian Church of Ghana, Peace Be Congregation, Community 25, Tema. The product includes the public website, private member area and secure church-office workspaces for publishing, membership, ministry, worship, care, finance, governance and communications.
 
 ## Stack
 
@@ -56,6 +56,13 @@ Feel: modern, warm, premium, reverent. Never template looking.
 | `/visit`                                      | Visit         |
 | `/give`                                       | Give          |
 | `/contact`                                    | Contact       |
+| `/today`                                      | Daily Almanac |
+| `/church-family`, `/session`                  | Church structure |
+| `/stories`, `/stories/[slug]`                 | Congregation stories |
+| `/resources`, `/privacy`                      | Resources and privacy |
+| `/harvest`                                    | Live Harvest |
+| `/member`, `/member/login`                    | Member area |
+| `/admin/*`                                    | Church office |
 | `/api/contact`                                | Contact API   |
 
 ## Database
@@ -90,10 +97,9 @@ Feel: modern, warm, premium, reverent. Never template looking.
 
 ## Current phase
 
-Secure admin authentication, dashboard and public-content management. Member features, payments, SMS and attendance remain later phases.
+All four foundational milestones are represented in the schema and interface. External delivery providers, payment gateways and production data imports remain configuration work and must be approved by the church before activation.
 
 ## Working style
 
-- Plan before building. Wait for approval.
-- After each step: run the build and lint, fix all errors, commit with a clear message, then report what was done, what is placeholder, and any questions.
-- Never start the next step without being asked.
+- Plan before building and keep changes reviewable.
+- Run the build and lint, fix errors, commit with a clear message, then report what was done, what needs production configuration, and any church decisions still required.

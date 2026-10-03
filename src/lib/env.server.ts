@@ -9,7 +9,7 @@ export const serverEnv = {
   get resendFromEmail() {
     return requireEnv("RESEND_FROM_EMAIL", process.env.RESEND_FROM_EMAIL);
   },
-  // TODO(review): all contact and visitor messages go to one office inbox.
+  // Contact and visitor messages share the configured church-office inbox.
   get churchOfficeEmail() {
     return requireEnv("CHURCH_OFFICE_EMAIL", process.env.CHURCH_OFFICE_EMAIL);
   },

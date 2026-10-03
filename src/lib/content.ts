@@ -11,6 +11,8 @@ export type Announcement = { id: string; title: string; body: string; publish_at
 export type Leader = { id: string; full_name: string; title: string; bio: string | null; photo_key: string | null; group_id: string | null; category: "minister" | "session" | "group_leader" };
 export type AlmanacEntry = { id: string; entry_date: string; day_label: string | null; theme: string | null; liturgical_season: string | null; liturgical_color: string | null; readings: string[]; memory_verse_reference: string | null; memory_verse_text: string | null; hymn_number: string | null; hymn_title: string | null; hymn_language: string | null; prayer_focus: string | null; observance: string | null; reflection: string | null; source_note: string | null };
 export type Campaign = { id: string; name: string; slug: string; theme: string | null; scripture_reference: string | null; purpose: string | null; target_amount: number; confirmed_amount: number; starts_on: string; ends_on: string | null; status: "active" | "closed"; show_progress: boolean };
+export type Story = { id: string; title: string; slug: string; excerpt: string | null; body: string; cover_image_key: string | null; published_at: string };
+export type Download = { id: string; title: string; description: string | null; category: string; object_key: string | null; external_url: string | null };
 type PageContent = { key: string; title: string | null; body: string | null };
 export type Result<T> = { data: T[]; available: boolean };
 
@@ -55,6 +57,9 @@ export const getSermons = cache((page = 1, search = "") => {
 });
 export const getAlmanacEntry = cache(async (date: string) => read<AlmanacEntry>(publicDatabase()?.from("almanac_entries").select("*").eq("entry_date", date).eq("status", "published").limit(1)));
 export const getCampaigns = cache(() => read<Campaign>(publicDatabase()?.from("campaigns").select("*").in("status", ["active", "closed"]).order("starts_on", { ascending: false })));
+export const getStories = cache(() => read<Story>(publicDatabase()?.from("stories").select("*").eq("status", "published").order("published_at", { ascending: false })));
+export const getStory = cache((slug: string) => read<Story>(publicDatabase()?.from("stories").select("*").eq("slug", slug).eq("status", "published").limit(1)));
+export const getDownloads = cache(() => read<Download>(publicDatabase()?.from("downloads").select("*").eq("status", "published").order("category").order("sort_order")));
 export const getEvent = cache(async (slug: string) => read<ChurchEvent>(publicDatabase()?.from("events").select("*").eq("slug", slug).in("status", ["published", "cancelled"]).limit(1)));
 export const getSermon = cache(async (slug: string) => read<Sermon>(publicDatabase()?.from("sermons").select("*").eq("slug", slug).eq("status", "published").limit(1)));
 

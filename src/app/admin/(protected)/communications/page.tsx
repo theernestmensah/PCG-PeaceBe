@@ -1,0 +1,11 @@
+import { AdminEmpty } from "@/components/admin/admin-page";
+import { dateLabel } from "@/lib/content";
+import { requireAdmin } from "@/lib/admin-auth";
+import { createClient } from "@/lib/supabase/server";
+
+export default async function CommunicationsPage() {
+  await requireAdmin(); const supabase = await createClient();
+  const [messages, deliveries] = await Promise.all([supabase.from("contact_messages").select("id,name,type,phone,email,message,is_handled,created_at").order("created_at", { ascending: false }).limit(50), supabase.from("message_deliveries").select("id,channel,subject,status,created_at").order("created_at", { ascending: false }).limit(30)]);
+  return <main className="admin-main"><header className="admin-page-header"><div><p>Enquiries and delivery history</p><h1>Communications</h1><span>See incoming requests and keep an accountable message record.</span></div></header><div className="admin-dashboard-grid"><section className="admin-section"><div className="admin-section-title"><h2>Inbox</h2><span>{messages.data?.filter(item => !item.is_handled).length ?? 0} open</span></div>{messages.data?.length ? <div className="admin-list">{messages.data.map(item => <article key={item.id}><div><strong>{item.name}</strong><span>{item.type === "visitor" ? "Visit enquiry" : "Contact"} · {dateLabel(item.created_at)}</span></div><p>{item.message || item.phone || item.email || "No detail supplied"}</p><span className={`admin-status ${item.is_handled ? "admin-status-published" : "admin-status-draft"}`}>{item.is_handled ? "handled" : "open"}</span></article>)}</div> : <AdminEmpty title="No messages">Contact and visitor enquiries will appear here.</AdminEmpty>}</section><aside className="admin-section"><div className="admin-section-title"><h2>Delivery log</h2></div>{deliveries.data?.length ? <div className="admin-table">{deliveries.data.map(item => <article key={item.id}><div><strong>{item.subject || "Church message"}</strong><span>{item.channel} · {dateLabel(item.created_at)}</span></div><span className="admin-status admin-status-draft">{item.status}</span></article>)}</div> : <AdminEmpty title="No deliveries yet">Email, SMS or WhatsApp provider records will appear after integration.</AdminEmpty>}</aside></div></main>;
+}
+

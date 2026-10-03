@@ -1,0 +1,12 @@
+import { AdminEmpty, AdminNotice } from "@/components/admin/admin-page";
+import { dateLabel } from "@/lib/content";
+import { requireAdmin } from "@/lib/admin-auth";
+import { createClient } from "@/lib/supabase/server";
+import { createFollowup } from "../operations/actions";
+
+export default async function CarePage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  await requireAdmin(); const supabase = await createClient();
+  const [followups, people] = await Promise.all([supabase.from("pastoral_followups").select("id,subject,status,due_on,people!pastoral_followups_person_id_fkey(first_name,last_name)").neq("status", "complete").order("due_on").limit(40), supabase.from("people").select("id,first_name,last_name").order("last_name").limit(500)]);
+  return <main className="admin-main"><header className="admin-page-header"><div><p>Shepherding and pastoral care</p><h1>Care</h1><span>Track assigned follow-up without exposing sensitive notes publicly.</span></div></header><AdminNotice params={await searchParams} /><div className="admin-content-layout"><section className="admin-section"><div className="admin-section-title"><h2>Open follow-ups</h2><span>Restricted office data</span></div>{followups.data?.length ? <div className="admin-table">{followups.data.map(item => <article key={item.id}><div><strong>{item.subject}</strong><span>{item.due_on ? `Due ${dateLabel(item.due_on)}` : "No due date"}</span></div><span className="admin-status admin-status-draft">{item.status}</span></article>)}</div> : <AdminEmpty title="No open follow-ups">New pastoral follow-ups will appear here.</AdminEmpty>}</section><aside className="admin-editor-column"><section className="admin-section admin-editor"><h2>Add follow-up</h2><form action={createFollowup}><label>Person<select name="person_id" required defaultValue=""><option value="" disabled>Select a person</option>{people.data?.map(person => <option key={person.id} value={person.id}>{person.last_name}, {person.first_name}</option>)}</select></label><label>Subject<input name="subject" required maxLength={240} /></label><label>Private detail<textarea name="detail" rows={5} maxLength={5000} /></label><label>Due on<input name="due_on" type="date" /></label><button className="admin-button admin-button-primary" type="submit" disabled={!people.data?.length}>Save follow-up</button></form></section></aside></div></main>;
+}
+

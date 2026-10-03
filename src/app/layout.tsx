@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     siteName: siteFullName,
     locale: "en_GH",
     type: "website",
+    images: [{ url: "/images/peace-be-building.webp", width: 1200, height: 800, alt: "Peace Be Congregation church building" }],
   },
 };
 

@@ -1,6 +1,6 @@
-# PCG Peace Be Congregation Website
+# PCG Peace Be Congregation ChMS
 
-Public website for the Presbyterian Church of Ghana, Peace Be Congregation. See `CLAUDE.md` for scope, stack and rules.
+Public website, member area and church management system for the Presbyterian Church of Ghana, Peace Be Congregation. See `CLAUDE.md` and `docs/CHMS_BLUEPRINT.md` for the product model and operating rules.
 
 ## Setup
 
@@ -26,7 +26,7 @@ Public website for the Presbyterian Church of Ghana, Peace Be Congregation. See 
 
 The public pages read published content from Supabase. Apply the migration and
 starter rows, then fill in `site_settings`, `service_times`, `page_content`,
-events, sermons, announcements, groups and leaders. Missing content is handled
+events, sermons, announcements, groups, leaders, Almanac entries, Harvest campaigns, stories and resources. Missing content is handled
 with visitor-friendly empty states; the site never invents church details.
 
 The contact and visit forms are enabled when the Supabase and Cloudflare
@@ -34,10 +34,7 @@ Turnstile variables in `.env.example` are configured. Resend is optional: a
 message is considered received after it has been stored in Supabase, while email
 acts as an office notification.
 
-Replace `public/images/open-bible.jpg` with approved congregation photography
-when it is available, and replace the temporary crest component with the
-official PCG artwork. Image licensing information is in
-`public/images/CREDITS.md`.
+The repository includes the official crest supplied for this project and approved congregation building renderings. Image information is in `public/images/CREDITS.md`.
 
 ## Church office
 
@@ -53,9 +50,15 @@ insert into public.user_roles (user_id, role)
 values ('USER_UUID_HERE', 'admin');
 ```
 
-There is deliberately no public staff-registration route. Once signed in, an
-administrator can publish announcements and events, manage service times and
-review recent website enquiries.
+There is deliberately no public staff-registration route. The office workspace covers publishing, stories and resources, people, ministry, worship and Almanac, pastoral follow-up, finance, Session governance and communications.
+
+## Member area
+
+The private member area is available at `/member`. A Supabase Auth account must be linked to a verified `people` record through `people.auth_user_id`. Members can read only their own profile, ministry membership, attendance and confirmed giving records. Staff create and link accounts through an approved church process; there is no open public registration route.
+
+## Data safety
+
+Every operational table uses Row Level Security. Public queries cannot read people, households, attendance, giving, governance or pastoral records. Confirmed financial entries cannot be deleted or silently changed; corrections use reversals. Apply every migration and run `npm run db:test` against the linked Supabase project before production use.
 
 ## Deploying to Cloudflare
 

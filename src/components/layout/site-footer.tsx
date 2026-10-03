@@ -52,8 +52,9 @@ export async function SiteFooter() {
       </Container>
 
       <div className="border-t border-white/15">
-        <Container className="py-5 text-sm text-white/70">
-          © {year} {siteFullName}
+        <Container className="flex flex-wrap items-center justify-between gap-3 py-5 text-sm text-white/70">
+          <span>© {year} {siteFullName}</span>
+          <span className="flex flex-wrap gap-5"><Link href="/member/login" className="hover:text-white hover:underline">Member area</Link><Link href="/privacy" className="hover:text-white hover:underline">Privacy</Link><Link href="/admin/login" className="hover:text-white hover:underline">Church office</Link></span>
         </Container>
       </div>
     </footer>

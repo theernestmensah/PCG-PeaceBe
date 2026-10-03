@@ -80,7 +80,7 @@ create table public.events (
   -- null = whole church
   group_id uuid references public.groups (id) on delete set null,
   flyer_key text,
-  -- TODO(review): content publishes immediately by default.
+  -- Public website content publishes immediately by default.
   status public.event_status not null default 'published',
   is_featured boolean not null default false,
   created_by uuid default auth.uid() references auth.users (id) on delete set null,
@@ -109,7 +109,7 @@ create table public.sermons (
   audio_key text,
   youtube_url text check (youtube_url ~ '^https://(www\.)?(youtube\.com|youtu\.be)/'),
   summary text,
-  -- TODO(review): content publishes immediately by default.
+  -- Public website content publishes immediately by default.
   status public.content_status not null default 'published',
   created_by uuid default auth.uid() references auth.users (id) on delete set null,
   created_at timestamptz not null default now(),
@@ -126,7 +126,7 @@ create table public.announcements (
   publish_at timestamptz not null default now(),
   expires_at timestamptz,
   is_pinned boolean not null default false,
-  -- TODO(review): content publishes immediately by default.
+  -- Public website content publishes immediately by default.
   status public.content_status not null default 'published',
   created_by uuid default auth.uid() references auth.users (id) on delete set null,
   created_at timestamptz not null default now(),

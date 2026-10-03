@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 
-// TODO(step 7): report the error to Sentry.
 export default function ErrorPage({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <Container className="py-20">

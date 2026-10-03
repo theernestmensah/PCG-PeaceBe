@@ -1,7 +1,7 @@
 -- Starter data. Safe to run more than once.
 -- Only confirmed facts and structure the office will fill in: no invented people, events or contact details.
 
--- TODO(review): confirm groups, names and order with the congregation.
+-- Confirm names and order with the congregation before production import.
 insert into public.groups (name, short_name, slug, sort_order) values
   ('Children''s Service', 'CS', 'childrens-service', 10),
   ('Junior Youth', 'JY', 'junior-youth', 20),
