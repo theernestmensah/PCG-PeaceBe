@@ -17,7 +17,7 @@ Website and church management system for the Presbyterian Church of Ghana, Peace
 
 Presbyterian Church of Ghana identity. The brand colors are red, white, blue, and green, and no others. Neutrals are used only for text and backgrounds.
 
-Logo: the official PCG crest, `public/images/pcg-crest.jpg`.
+Logo: the official PCG crest, `public/images/pcg-crest.png` (transparent background).
 
 Tailwind tokens (blue, red and green sampled from the crest):
 

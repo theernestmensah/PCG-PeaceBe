@@ -40,7 +40,7 @@ export async function SiteHeader() {
               <span className="truncate">
                 <span className="text-white/75">Next service: </span>
                 <span className="font-semibold">{office.nextService.label}</span>
-                <span className="hidden text-white/75 md:inline"> · {office.nextService.name}</span>
+                <span className="hidden text-white/75 md:inline"> Â· {office.nextService.name}</span>
               </span>
             </Link>
           ) : (
@@ -65,12 +65,12 @@ export async function SiteHeader() {
         <Container className="flex min-h-18 items-center justify-between gap-2 py-2 sm:gap-3">
           <Link href="/" className="tap flex min-w-0 items-center gap-2 rounded-sm sm:gap-3">
             <Image
-              src="/images/pcg-crest.jpg"
+              src="/images/pcg-crest.png"
               alt=""
-              width={177}
-              height={148}
+              width={211}
+              height={281}
               preload
-              className="h-9 w-auto shrink-0 sm:h-12"
+              className="h-11 w-auto shrink-0 sm:h-14"
             />
             <span className="flex flex-col leading-tight">
               <span className="text-xs/tight font-medium text-muted sm:tracking-wide sm:uppercase lg:max-xl:sr-only">
